@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tiki Videos 1 - Blog oficial de Tiki Videos">
+  <link rel="icon" href="https://static.vecteezy.com/system/resources/thumbnails/044/630/928/small/cute-little-monkey-cartoon-character-free-png.png" type="image/x-icon">
+  <title>Tiki Videos 1 | Blog Oficial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b12;
+      --bg-card: #0d1320;
+      --bg-elevated: #121a2b;
+      --border: #1e2a3f;
+      --cyan: #00e5ff;
+      --magenta: #ff2d95;
+      --amber: #ffb300;
+      --green: #00e676;
+      --text: #e8f0ff;
+      --text-muted: #7a8ba8;
+      --danger: #ff5252;
+      --radius: 16px;
+      --glow-cyan: 0 0 20px rgba(0, 229, 255, 0.25), 0 0 40px rgba(0, 229, 255, 0.1);
+      --glow-magenta: 0 0 20px rgba(255, 45, 149, 0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 10% 20%, rgba(0, 229, 255, 0.07) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 90% 80%, rgba(255, 45, 149, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse 50% 30% at 50% 50%, rgba(255, 179, 0, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(7, 11, 18, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 4px 30px rgba(0, 229, 255, 0.05);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.9rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--cyan), var(--magenta));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: var(--glow-cyan);
+    }
+
+    .logo-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-text span {
+      color: var(--cyan);
+      text-shadow: 0 0 12px rgba(0, 229, 255, 0.5);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.35rem;
+      background: var(--bg-card);
+      padding: 0.3rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .nav-tab {
+      padding: 0.5rem 1.1rem;
+      border-radius: 9px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-tab:hover { color: var(--text); }
+    .nav-tab.active {
+      background: rgba(0, 229, 255, 0.12);
+      color: var(--cyan);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .user-chip {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.75rem 0.3rem 0.3rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      font-size: 0.82rem;
+      color: var(--cyan);
+    }
+
+    .user-chip.visible { display: flex; }
+
+    .user-chip img, .user-chip .avatar-fallback {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-chip .avatar-fallback {
+      background: linear-gradient(135deg, var(--cyan), var(--magenta));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.3rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-cyan {
+      background: rgba(0, 229, 255, 0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+    }
+
+    .btn-cyan:hover {
+      background: rgba(0, 229, 255, 0.22);
+      box-shadow: var(--glow-cyan);
+      transform: translateY(-1px);
+    }
+
+    .btn-solid {
+      background: linear-gradient(135deg, var(--cyan), #0091ea);
+      color: #061018;
+      border: none;
+      box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+    }
+
+    .btn-solid:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(0, 229, 255, 0.4);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
+    }
+
+    .btn-danger {
+      background: rgba(255, 82, 82, 0.12);
+      color: var(--danger);
+      border: 1px solid rgba(255, 82, 82, 0.3);
+    }
+
+    .btn-danger:hover {
+      background: rgba(255, 82, 82, 0.22);
+    }
+
+    .btn-sm {
+      padding: 0.4rem 0.85rem;
+      font-size: 0.8rem;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .view {
+      display: none;
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding-top: 70px;
+    }
+
+    .view.active { display: block; }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 2.5rem 1.4rem 4rem;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 3.5rem 1.4rem 2.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.25);
+      color: var(--cyan);
+      padding: 0.35rem 0.95rem;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-bottom: 1.3rem;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.9rem, 5vw, 2.9rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 20%, var(--cyan) 60%, var(--magenta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 1.8rem;
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      border-color: rgba(0, 229, 255, 0.3);
+      box-shadow: var(--glow-cyan);
+    }
+
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.05rem;
+      color: var(--cyan);
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.35rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.5px;
+    }
+
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .about-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .creator-row {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      margin-top: 1.3rem;
+      padding-top: 1.3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .creator-avatar {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--magenta));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      box-shadow: var(--glow-cyan);
+    }
+
+    .creator-row h4 { font-size: 1.05rem; }
+    .creator-row p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+
+    .blog-list { display: grid; gap: 1.3rem; }
+
+    .post {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.7rem;
+      transition: all 0.25s;
+    }
+
+    .post:hover {
+      border-color: rgba(0, 229, 255, 0.35);
+      box-shadow: 0 0 25px rgba(0, 229, 255, 0.08);
+    }
+
+    .post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .tag {
+      background: rgba(0, 229, 255, 0.1);
+      color: var(--cyan);
+      padding: 0.15rem 0.6rem;
+      border-radius: 50px;
+      font-weight: 500;
+      border: 1px solid rgba(0, 229, 255, 0.2);
+    }
+
+    .post h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.35;
+    }
+
+    .post-body {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      white-space: pre-wrap;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+    }
+
+    .clock-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.2rem;
+      max-width: 420px;
+      margin: 2.5rem auto 0;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 230, 118, 0.06);
+    }
+
+    .clock-time {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      text-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+      margin: 0.6rem 0 0.3rem;
+    }
+
+    .clock-date { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+    .clock-loc { font-size: 0.9rem; margin-bottom: 1rem; min-height: 1.3rem; }
+    .clock-loc span { color: var(--green); font-weight: 600; }
+    .clock-status { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.7rem; min-height: 1.1rem; }
+
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.4rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.25s;
+    }
+
+    .social-link:hover {
+      border-color: var(--cyan);
+      box-shadow: var(--glow-cyan);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer .copy {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      color: var(--cyan);
+      margin-bottom: 0.35rem;
+      text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+    }
+
+    .settings-layout {
+      display: grid;
+      gap: 2rem;
+    }
+
+    @media (min-width: 800px) {
+      .settings-layout {
+        grid-template-columns: 300px 1fr;
+        align-items: start;
+      }
+    }
+
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      text-align: center;
+      position: sticky;
+      top: 90px;
+    }
+
+    .profile-photo-wrap {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid transparent;
+      background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box,
+                  linear-gradient(135deg, var(--cyan), var(--magenta)) border-box;
+      box-shadow: var(--glow-cyan);
+      position: relative;
+    }
+
+    .profile-photo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-photo-wrap .fallback {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #0d1320, #1a2740);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--cyan);
+    }
+
+    .profile-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .profile-email {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+      word-break: break-all;
+    }
+
+    .profile-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .profile-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .profile-links a {
+      color: var(--cyan);
+      font-size: 0.82rem;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .profile-links a:hover { text-decoration: underline; }
+
+    .profile-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .profile-meta strong { color: var(--cyan); }
+
+    .settings-panel {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+    }
+
+    .panel h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.95rem;
+      color: var(--cyan);
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.4px;
+    }
+
+    .form-row {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+      font-weight: 500;
+    }
+
+    .form-row input,
+    .form-row textarea,
+    .form-row select {
+      width: 100%;
+      padding: 0.7rem 0.95rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-row input:focus,
+    .form-row textarea:focus,
+    .form-row select:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.12);
+    }
+
+    .form-row textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .form-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .photo-upload-area {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .photo-preview {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+      background: var(--bg);
+    }
+
+    .photo-preview.fallback-preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--cyan);
+    }
+
+    .file-btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .file-btn input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .editor-posts { display: grid; gap: 0.9rem; }
+
+    .editor-post {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .editor-post h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .editor-post .meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .editor-post-actions {
+      display: flex;
+      gap: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .msg {
+      font-size: 0.85rem;
+      margin-top: 0.7rem;
+      display: none;
+    }
+
+    .msg.visible { display: block; }
+    .msg.ok { color: var(--green); }
+    .msg.err { color: var(--danger); }
+
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+    }
+
+    .modal-bg.open { display: flex; }
+
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 0 40px rgba(0, 229, 255, 0.12);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal.wide { max-width: 520px; }
+
+    .modal h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 0.3rem;
+      color: var(--cyan);
+    }
+
+    .modal .sub {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-x {
+      position: absolute;
+      top: 1rem;
+      right: 1.1rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-x:hover { color: var(--text); }
+
+    .gate {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .gate h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .gate p {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .nav-tabs { display: none; }
+      .nav-tabs.mobile-open {
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        flex-direction: column;
+        background: var(--bg);
+        padding: 0.8rem;
+        border-bottom: 1px solid var(--border);
+        border-radius: 0;
+      }
+      .menu-toggle { display: block; }
+      .header-right .btn { padding: 0.5rem 0.9rem; font-size: 0.8rem; }
+      .profile-card { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="#" class="logo" onclick="showView('home'); return false;">
+        <div class="logo-icon">🦧</div>
+        <div class="logo-text">Tiki <span>Videos 1</span></div>
+      </a>
+
+      <div class="nav-tabs" id="navTabs">
+        <button class="nav-tab active" data-view="home" type="button">Inicio</button>
+        <button class="nav-tab" data-view="settings" type="button">Ajustes</button>
+      </div>
+
+      <div class="header-right">
+        <div class="user-chip" id="userChip">
+          <span class="avatar-fallback" id="chipAvatar">?</span>
+          <span id="chipName"></span>
+        </div>
+        <button class="btn btn-cyan btn-sm" id="btnAuth" type="button">Registrarse</button>
+        <button class="btn btn-ghost btn-sm" id="btnLogout" type="button" style="display:none;">Salir</button>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Menú">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- VISTA INICIO -->
+  <div class="view active" id="view-home">
+    <div class="hero">
+      <div class="hero-badge">🔥 Blog oficial de Tiki Videos</div>
+      <h1>El universo de Tiki y Huguito</h1>
+      <p>
+        Noticias, actualizaciones y todo sobre la saga de Tiki, el orangután audaz,
+        y su leal amigo Huguito contra los payasos de la Deep Web.
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.youtube.com/@TikiVIDEOS1" target="_blank" rel="noopener" class="btn btn-solid">▶ YouTube</a>
+        <a href="https://www.instagram.com/tiki_videos1/" target="_blank" rel="noopener" class="btn btn-cyan">📸 Instagram</a>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="about-grid">
+        <div class="card">
+          <div class="card-title">Sobre Tiki Videos</div>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            Canal de acción y comedia protagonizado por <strong style="color:var(--text)">Tiki</strong>,
+            un orangután valiente, junto a <strong style="color:var(--text)">Huguito</strong>, el gorila leal.
+            Se enfrentan a los enigmáticos payasos de la Deep Web: Alfa, Beta y amenazas mayores.
+          </p>
+          <div class="creator-row">
+            <div class="creator-avatar">👨‍💻</div>
+            <div>
+              <h4>Hugo</h4>
+              <p>Creador · 26 años · Argentina</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">Blog Oficial</h2>
+      <p class="section-sub">Entradas publicadas por la comunidad y el equipo</p>
+      <div class="blog-list" id="blogList"></div>
+
+      <div class="clock-box">
+        <div style="font-size: 1.6rem;">🌍</div>
+        <div class="clock-time" id="clockTime">--:--:--</div>
+        <div class="clock-date" id="clockDate">Cargando...</div>
+        <div class="clock-loc" id="clockLoc">Detectando zona horaria...</div>
+        <button class="btn btn-cyan btn-sm" id="btnGeo" type="button">📍 Detectar mi país</button>
+        <div class="clock-status" id="clockStatus"></div>
+      </div>
+
+      <div style="text-align:center; margin-top: 3rem;">
+        <h2 class="section-title" style="margin-bottom:0.5rem;">Redes oficiales</h2>
+        <div class="social-row">
+          <a href="https://www.youtube.com/@TikiVIDEOS1" target="_blank" rel="noopener" class="social-link">▶ YouTube · @TikiVIDEOS1</a>
+          <a href="https://www.instagram.com/tiki_videos1/" target="_blank" rel="noopener" class="social-link">📸 Instagram · @tiki_videos1</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISTA AJUSTES -->
+  <div class="view" id="view-settings">
+    <div class="container">
+      <div class="gate" id="settingsGate">
+        <h2>Ajustes de perfil</h2>
+        <p>Registrate con tu nombre y correo para acceder a tu perfil único, editar el blog y gestionar tu cuenta.</p>
+        <button class="btn btn-solid" id="btnAuthGate" type="button">Registrarse / Entrar</button>
+      </div>
+
+      <div id="settingsContent" style="display:none;">
+        <h2 class="section-title">Ajustes</h2>
+        <p class="section-sub">Tu perfil único y el editor del blog oficial</p>
+
+        <div class="settings-layout">
+          <aside class="profile-card" id="profileCard">
+            <div class="profile-photo-wrap">
+              <div class="fallback" id="profilePhotoFallback">👤</div>
+              <img id="profilePhotoImg" style="display:none;" alt="Foto de perfil">
+            </div>
+            <div class="profile-name" id="profileName">—</div>
+            <div class="profile-email" id="profileEmail">—</div>
+            <div class="profile-desc" id="profileDesc"></div>
+            <div class="profile-links" id="profileLinks"></div>
+            <div class="profile-meta">
+              Miembro desde<br>
+              <strong id="profileSince">—</strong>
+            </div>
+          </aside>
+
+          <div class="settings-panel">
+            <div class="panel">
+              <h3>Editar perfil</h3>
+              <form id="profileForm">
+                <div class="photo-upload-area">
+                  <img class="photo-preview" id="photoPreview" style="display:none;" alt="">
+                  <div class="photo-preview fallback-preview" id="photoPreviewFallback">👤</div>
+                  <div>
+                    <div class="btn btn-cyan btn-sm file-btn">
+                      Subir foto
+                      <input type="file" id="photoInput" accept="image/*">
+                    </div>
+                    <button type="button" class="btn btn-ghost btn-sm" id="btnRemovePhoto" style="margin-top:0.4rem; display:none;">Quitar foto</button>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <label for="pfName">Nombre de usuario</label>
+                  <input type="text" id="pfName" required maxlength="40" placeholder="Tu nombre">
+                </div>
+                <div class="form-row">
+                  <label for="pfEmail">Correo (único, no se puede cambiar)</label>
+                  <input type="email" id="pfEmail" readonly style="opacity:0.6; cursor:not-allowed;">
+                </div>
+                <div class="form-row">
+                  <label for="pfDesc">Descripción</label>
+                  <textarea id="pfDesc" maxlength="280" placeholder="Contá un poco sobre vos..."></textarea>
+                </div>
+                <div class="form-row">
+                  <label for="pfLink1">Enlace de red 1 (opcional)</label>
+                  <input type="url" id="pfLink1" placeholder="https://instagram.com/...">
+                </div>
+                <div class="form-row">
+                  <label for="pfLink2">Enlace de red 2 (opcional)</label>
+                  <input type="url" id="pfLink2" placeholder="https://youtube.com/@...">
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-solid">Guardar perfil</button>
+                </div>
+                <p class="msg ok" id="profileMsgOk">Perfil actualizado correctamente.</p>
+                <p class="msg err" id="profileMsgErr"></p>
+              </form>
+            </div>
+
+            <div class="panel">
+              <h3>Editor del blog</h3>
+              <button class="btn btn-cyan" id="btnNewPost" type="button" style="margin-bottom:1.2rem;">+ Nueva entrada</button>
+              <div class="editor-posts" id="editorPosts"></div>
+            </div>
+
+            <div class="panel" style="border-color: rgba(255,82,82,0.25);">
+              <h3 style="color: var(--danger);">Zona de peligro</h3>
+              <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem;">
+                Borrar tu perfil elimina tu cuenta de este navegador. Las entradas que publicaste permanecen.
+              </p>
+              <button class="btn btn-danger" id="btnDeleteProfile" type="button">Borrar mi perfil</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="copy">© 2026 TIKI VIDEOS</div>
+    <div>Blog oficial · Todos los derechos reservados</div>
+  </footer>
+
+  <!-- Modal Auth -->
+  <div class="modal-bg" id="authModal">
+    <div class="modal">
+      <button class="modal-x" id="closeAuth" type="button">×</button>
+      <h3>Registrarse / Entrar</h3>
+      <p class="sub">Solo nombre y correo. Se crea un perfil único ligado a tu email. No hay bots ni seguidores.</p>
+      <form id="authForm">
+        <div class="form-row">
+          <label for="authName">Nombre</label>
+          <input type="text" id="authName" required maxlength="40" placeholder="Tu nombre" autocomplete="name">
+        </div>
+        <div class="form-row">
+          <label for="authEmail">Correo electrónico</label>
+          <input type="email" id="authEmail" required placeholder="tu@email.com" autocomplete="email">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-solid" style="flex:1;">Continuar</button>
+        </div>
+        <p class="msg err" id="authErr"></p>
+        <p class="msg ok" id="authOk"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Post -->
+  <div class="modal-bg" id="postModal">
+    <div class="modal wide">
+      <button class="modal-x" id="closePost" type="button">×</button>
+      <h3 id="postModalTitle">Nueva entrada</h3>
+      <p class="sub">Se guarda de forma permanente en este navegador.</p>
+      <form id="postForm">
+        <input type="hidden" id="postId">
+        <div class="form-row">
+          <label for="postTitle">Título</label>
+          <input type="text" id="postTitle" required maxlength="120" placeholder="Título de la entrada">
+        </div>
+        <div class="form-row">
+          <label for="postTag">Etiqueta</label>
+          <select id="postTag">
+            <option value="Noticia">Noticia</option>
+            <option value="Actualización">Actualización</option>
+            <option value="Personajes">Personajes</option>
+            <option value="Destacado">Destacado</option>
+            <option value="Comunidad">Comunidad</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="postContent">Contenido</label>
+          <textarea id="postContent" required placeholder="Escribí el contenido..." style="min-height:140px;"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" id="cancelPost">Cancelar</button>
+          <button type="submit" class="btn btn-solid">Guardar</button>
+        </div>
+        <p class="msg err" id="postErr"></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const K = {
+      users: 'tiki_v1_users',
+      session: 'tiki_v1_session',
+      posts: 'tiki_v1_posts'
+    };
+
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
+
+    function load(key, fallback) {
+      try {
+        const v = JSON.parse(localStorage.getItem(key));
+        return v != null ? v : fallback;
+      } catch { return fallback; }
+    }
+
+    function save(key, val) {
+      localStorage.setItem(key, JSON.stringify(val));
+    }
+
+    function escapeHtml(t) {
+      const d = document.createElement('div');
+      d.textContent = t;
+      return d.innerHTML;
+    }
+
+    function formatDate(iso) {
+      try {
+        return new Date(iso).toLocaleString('es-ES', {
+          year: 'numeric', month: 'long', day: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        });
+      } catch { return iso; }
+    }
+
+    function formatDateShort(iso) {
+      try {
+        return new Date(iso).toLocaleDateString('es-ES', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+      } catch { return iso; }
+    }
+
+    function getUsers() { return load(K.users, []); }
+    function saveUsers(u) { save(K.users, u); }
+
+    function getSession() { return load(K.session, null); }
+    function setSession(u) {
+      if (u) save(K.session, { email: u.email });
+      else localStorage.removeItem(K.session);
+    }
+
+    function getCurrentUser() {
+      const sess = getSession();
+      if (!sess) return null;
+      return getUsers().find(u => u.email === sess.email) || null;
+    }
+
+    function upsertUser(data) {
+      const users = getUsers();
+      const idx = users.findIndex(u => u.email === data.email);
+      if (idx >= 0) {
+        users[idx] = { ...users[idx], ...data, updatedAt: new Date().toISOString() };
+      } else {
+        users.push({
+          ...data,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        });
+      }
+      saveUsers(users);
+      return users.find(u => u.email === data.email);
+    }
+
+    function deleteCurrentUser() {
+      const user = getCurrentUser();
+      if (!user) return;
+      const users = getUsers().filter(u => u.email !== user.email);
+      saveUsers(users);
+      setSession(null);
+    }
+
+    function getPosts() {
+      let posts = load(K.posts, null);
+      if (posts && posts.length) return posts;
+      posts = [
+        {
+          id: 'd1',
+          title: 'La saga de los payasos de la Deep Web sigue creciendo',
+          tag: 'Destacado',
+          content: 'Desde las primeras apariciones de Alfa hasta las batallas más recientes contra Beta e Inferno, el universo de Tiki ha conquistado a cientos de miles de fans. Cada nuevo capítulo eleva la apuesta.',
+          date: '2026-08-01T12:00:00.000Z',
+          author: 'Hugo',
+          authorEmail: 'contactotikivideos@gmail.com'
+        },
+        {
+          id: 'd2',
+          title: 'Tiki y Huguito: la dupla que lo inició todo',
+          tag: 'Personajes',
+          content: 'Tiki, el orangután audaz, y Huguito, el gorila leal, representan la amistad, la valentía y el humor del canal. Hugo, creador argentino de 26 años, construyó un mundo coherente y con personalidad.',
+          date: '2026-07-20T12:00:00.000Z',
+          author: 'Hugo',
+          authorEmail: 'contactotikivideos@gmail.com'
+        },
+        {
+          id: 'd3',
+          title: 'Bienvenidos al blog oficial de Tiki Videos',
+          tag: 'Comunidad',
+          content: 'Este es el espacio oficial para noticias y actualizaciones del universo Tiki. Registrate con tu nombre y correo para obtener un perfil único y contribuir con entradas al blog.',
+          date: '2026-07-10T12:00:00.000Z',
+          author: 'Hugo',
+          authorEmail: 'contactotikivideos@gmail.com'
+        }
+      ];
+      save(K.posts, posts);
+      return posts;
+    }
+
+    function savePosts(posts) {
+      save(K.posts, posts);
+    }
+
+    function showView(name) {
+      $$('.view').forEach(v => v.classList.remove('active'));
+      const el = document.getElementById('view-' + name);
+      if (el) el.classList.add('active');
+
+      $$('.nav-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.view === name);
+      });
+
+      $('#navTabs').classList.remove('mobile-open');
+
+      if (name === 'settings') renderSettings();
+      if (name === 'home') renderBlog();
+    }
+
+    function renderBlog() {
+      const list = $('#blogList');
+      const posts = getPosts().sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (!posts.length) {
+        list.innerHTML = '<div class="empty-state">Aún no hay entradas publicadas.</div>';
+        return;
+      }
+
+      list.innerHTML = posts.map(p => `
+        <article class="post">
+          <div class="post-meta">
+            <span class="tag">${escapeHtml(p.tag)}</span>
+            <span>${formatDateShort(p.date)}</span>
+            <span>· ${escapeHtml(p.author)}</span>
+          </div>
+          <h3>${escapeHtml(p.title)}</h3>
+          <div class="post-body">${escapeHtml(p.content)}</div>
+        </article>
+      `).join('');
+    }
+
+    function renderSettings() {
+      const user = getCurrentUser();
+      const gate = $('#settingsGate');
+      const content = $('#settingsContent');
+
+      if (!user) {
+        gate.style.display = 'block';
+        content.style.display = 'none';
+        return;
+      }
+
+      gate.style.display = 'none';
+      content.style.display = 'block';
+
+      $('#profileName').textContent = user.name;
+      $('#profileEmail').textContent = user.email;
+      $('#profileDesc').textContent = user.description || '';
+      $('#profileSince').textContent = formatDate(user.createdAt);
+
+      const img = $('#profilePhotoImg');
+      const fb = $('#profilePhotoFallback');
+      if (user.photo) {
+        img.src = user.photo;
+        img.style.display = 'block';
+        fb.style.display = 'none';
+      } else {
+        img.style.display = 'none';
+        fb.style.display = 'flex';
+        fb.textContent = user.name.charAt(0).toUpperCase();
+      }
+
+      const linksEl = $('#profileLinks');
+      linksEl.innerHTML = '';
+      if (user.link1) linksEl.innerHTML += `<a href="${escapeHtml(user.link1)}" target="_blank" rel="noopener">${escapeHtml(user.link1)}</a>`;
+      if (user.link2) linksEl.innerHTML += `<a href="${escapeHtml(user.link2)}" target="_blank" rel="noopener">${escapeHtml(user.link2)}</a>`;
+
+      $('#pfName').value = user.name;
+      $('#pfEmail').value = user.email;
+      $('#pfDesc').value = user.description || '';
+      $('#pfLink1').value = user.link1 || '';
+      $('#pfLink2').value = user.link2 || '';
+
+      const prev = $('#photoPreview');
+      const prevFb = $('#photoPreviewFallback');
+      const btnRem = $('#btnRemovePhoto');
+      if (user.photo) {
+        prev.src = user.photo;
+        prev.style.display = 'block';
+        prevFb.style.display = 'none';
+        btnRem.style.display = 'inline-flex';
+      } else {
+        prev.style.display = 'none';
+        prevFb.style.display = 'flex';
+        prevFb.textContent = user.name.charAt(0).toUpperCase();
+        btnRem.style.display = 'none';
+      }
+
+      renderEditorPosts();
+    }
+
+    function renderEditorPosts() {
+      const box = $('#editorPosts');
+      const posts = getPosts().sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (!posts.length) {
+        box.innerHTML = '<p style="color:var(--text-muted);font-size:0.9rem;">No hay entradas. Creá la primera.</p>';
+        return;
+      }
+
+      box.innerHTML = posts.map(p => `
+        <div class="editor-post">
+          <div>
+            <h4>${escapeHtml(p.title)}</h4>
+            <div class="meta">${escapeHtml(p.tag)} · ${formatDateShort(p.date)} · ${escapeHtml(p.author)}</div>
+          </div>
+          <div class="editor-post-actions">
+            <button class="btn btn-cyan btn-sm" type="button" onclick="openEditPost('${p.id}')">Editar</button>
+            <button class="btn btn-danger btn-sm" type="button" onclick="deletePost('${p.id}')">Eliminar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateAuthUI() {
+      const user = getCurrentUser();
+      const chip = $('#userChip');
+      const btnAuth = $('#btnAuth');
+      const btnLogout = $('#btnLogout');
+
+      if (user) {
+        chip.classList.add('visible');
+        $('#chipName').textContent = user.name;
+        let av = $('#chipAvatar');
+        if (user.photo) {
+          if (av.tagName !== 'IMG') {
+            av.outerHTML = `<img src="${user.photo}" alt="" id="chipAvatar" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">`;
+          } else {
+            av.src = user.photo;
+          }
+        } else {
+          if (av.tagName === 'IMG') {
+            av.outerHTML = `<span class="avatar-fallback" id="chipAvatar">${user.name.charAt(0).toUpperCase()}</span>`;
+          } else {
+            av.textContent = user.name.charAt(0).toUpperCase();
+          }
+        }
+        btnAuth.style.display = 'none';
+        btnLogout.style.display = 'inline-flex';
+      } else {
+        chip.classList.remove('visible');
+        btnAuth.style.display = 'inline-flex';
+        btnLogout.style.display = 'none';
+      }
+    }
+
+    function openAuth() {
+      $('#authForm').reset();
+      $('#authErr').classList.remove('visible');
+      $('#authOk').classList.remove('visible');
+      $('#authModal').classList.add('open');
+    }
+
+    $('#btnAuth').addEventListener('click', openAuth);
+    $('#btnAuthGate').addEventListener('click', openAuth);
+    $('#closeAuth').addEventListener('click', () => $('#authModal').classList.remove('open'));
+    $('#authModal').addEventListener('click', e => { if (e.target === $('#authModal')) $('#authModal').classList.remove('open'); });
+
+    $('#authForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const name = $('#authName').value.trim();
+      const email = $('#authEmail').value.trim().toLowerCase();
+      const err = $('#authErr');
+      const ok = $('#authOk');
+      err.classList.remove('visible');
+      ok.classList.remove('visible');
+
+      if (!name || !email) {
+        err.textContent = 'Completá nombre y correo.';
+        err.classList.add('visible');
+        return;
+      }
+
+      const users = getUsers();
+      let user = users.find(u => u.email === email);
+
+      if (user) {
+        user = upsertUser({ email, name });
+        ok.textContent = '¡Hola de nuevo, ' + user.name + '!';
+      } else {
+        user = upsertUser({
+          email,
+          name,
+          description: '',
+          link1: '',
+          link2: '',
+          photo: null
+        });
+        ok.textContent = '¡Perfil creado, ' + user.name + '!';
+      }
+
+      setSession(user);
+      ok.classList.add('visible');
+      updateAuthUI();
+
+      setTimeout(() => {
+        $('#authModal').classList.remove('open');
+        showView('settings');
+      }, 900);
+    });
+
+    $('#btnLogout').addEventListener('click', () => {
+      setSession(null);
+      updateAuthUI();
+      showView('home');
+    });
+
+    let pendingPhoto = null;
+
+    $('#photoInput').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (file.size > 800000) {
+        $('#profileMsgErr').textContent = 'La foto debe pesar menos de 800 KB.';
+        $('#profileMsgErr').classList.add('visible');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = ev => {
+        pendingPhoto = ev.target.result;
+        const prev = $('#photoPreview');
+        prev.src = pendingPhoto;
+        prev.style.display = 'block';
+        $('#photoPreviewFallback').style.display = 'none';
+        $('#btnRemovePhoto').style.display = 'inline-flex';
+        $('#profileMsgErr').classList.remove('visible');
+      };
+      reader.readAsDataURL(file);
+    });
+
+    $('#btnRemovePhoto').addEventListener('click', () => {
+      pendingPhoto = false;
+      $('#photoPreview').style.display = 'none';
+      const fb = $('#photoPreviewFallback');
+      fb.style.display = 'flex';
+      const u = getCurrentUser();
+      fb.textContent = u ? u.name.charAt(0).toUpperCase() : '👤';
+      $('#btnRemovePhoto').style.display = 'none';
+      $('#photoInput').value = '';
+    });
+
+    $('#profileForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const user = getCurrentUser();
+      if (!user) return;
+
+      const name = $('#pfName').value.trim();
+      if (!name) {
+        $('#profileMsgErr').textContent = 'El nombre es obligatorio.';
+        $('#profileMsgErr').classList.add('visible');
+        return;
+      }
+
+      const data = {
+        email: user.email,
+        name,
+        description: $('#pfDesc').value.trim().slice(0, 280),
+        link1: $('#pfLink1').value.trim(),
+        link2: $('#pfLink2').value.trim()
+      };
+
+      if (pendingPhoto === false) data.photo = null;
+      else if (pendingPhoto) data.photo = pendingPhoto;
+
+      upsertUser(data);
+      pendingPhoto = null;
+      $('#profileMsgOk').classList.add('visible');
+      $('#profileMsgErr').classList.remove('visible');
+      updateAuthUI();
+      renderSettings();
+      setTimeout(() => $('#profileMsgOk').classList.remove('visible'), 2500);
+    });
+
+    $('#btnDeleteProfile').addEventListener('click', () => {
+      if (!confirm('¿Seguro que querés borrar tu perfil? Esta acción no se puede deshacer en este navegador.')) return;
+      deleteCurrentUser();
+      updateAuthUI();
+      showView('home');
+    });
+
+    function openNewPost() {
+      $('#postForm').reset();
+      $('#postId').value = '';
+      $('#postModalTitle').textContent = 'Nueva entrada';
+      $('#postErr').classList.remove('visible');
+      $('#postModal').classList.add('open');
+    }
+
+    window.openEditPost = function(id) {
+      const post = getPosts().find(p => p.id === id);
+      if (!post) return;
+      $('#postId').value = post.id;
+      $('#postTitle').value = post.title;
+      $('#postTag').value = post.tag;
+      $('#postContent').value = post.content;
+      $('#postModalTitle').textContent = 'Editar entrada';
+      $('#postErr').classList.remove('visible');
+      $('#postModal').classList.add('open');
+    };
+
+    window.deletePost = function(id) {
+      if (!confirm('¿Eliminar esta entrada de forma permanente?')) return;
+      const posts = getPosts().filter(p => p.id !== id);
+      savePosts(posts);
+      renderEditorPosts();
+      renderBlog();
+    };
+
+    $('#btnNewPost').addEventListener('click', openNewPost);
+    $('#closePost').addEventListener('click', () => $('#postModal').classList.remove('open'));
+    $('#cancelPost').addEventListener('click', () => $('#postModal').classList.remove('open'));
+    $('#postModal').addEventListener('click', e => { if (e.target === $('#postModal')) $('#postModal').classList.remove('open'); });
+
+    $('#postForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const user = getCurrentUser();
+      if (!user) return;
+
+      const id = $('#postId').value;
+      const title = $('#postTitle').value.trim();
+      const tag = $('#postTag').value;
+      const content = $('#postContent').value.trim();
+
+      if (!title || !content) {
+        $('#postErr').textContent = 'Título y contenido son obligatorios.';
+        $('#postErr').classList.add('visible');
+        return;
+      }
+
+      let posts = getPosts();
+
+      if (id) {
+        const idx = posts.findIndex(p => p.id === id);
+        if (idx >= 0) {
+          posts[idx] = {
+            ...posts[idx],
+            title,
+            tag,
+            content
+          };
+        }
+      } else {
+        posts.push({
+          id: 'p' + Date.now(),
+          title,
+          tag,
+          content,
+          date: new Date().toISOString(),
+          author: user.name,
+          authorEmail: user.email
+        });
+      }
+
+      savePosts(posts);
+      $('#postModal').classList.remove('open');
+      renderEditorPosts();
+      renderBlog();
+    });
+
+    $$('.nav-tab').forEach(tab => {
+      tab.addEventListener('click', () => showView(tab.dataset.view));
+    });
+
+    $('#menuToggle').addEventListener('click', () => {
+      $('#navTabs').classList.toggle('mobile-open');
+    });
+
+    function tick() {
+      const now = new Date();
+      $('#clockTime').textContent = now.toLocaleTimeString('es-ES', {
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      });
+      $('#clockDate').textContent = now.toLocaleDateString('es-ES', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+    }
+
+    function showTz() {
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        $('#clockLoc').innerHTML = 'Zona horaria: <span>' + tz + '</span>';
+      } catch {
+        $('#clockLoc').textContent = 'Zona horaria local';
+      }
+    }
+
+    tick();
+    showTz();
+    setInterval(tick, 1000);
+
+    $('#btnGeo').addEventListener('click', () => {
+      if (!navigator.geolocation) {
+        $('#clockStatus').textContent = 'Geolocalización no disponible.';
+        return;
+      }
+      const btn = $('#btnGeo');
+      btn.disabled = true;
+      btn.textContent = 'Detectando...';
+      $('#clockStatus').textContent = 'Solicitando permiso...';
+
+      navigator.geolocation.getCurrentPosition(
+        async pos => {
+          const { latitude, longitude } = pos.coords;
+          try {
+            const res = await fetch(
+              'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + latitude + '&lon=' + longitude + '&zoom=3&addressdetails=1',
+              { headers: { 'Accept-Language': 'es', 'User-Agent': 'TikiVideos1/1.0' } }
+            );
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+            const country = data.address?.country || 'Desconocido';
+            const city = data.address?.city || data.address?.town || data.address?.state || '';
+            let loc = '<span>' + country + '</span>';
+            if (city) loc = city + ', <span>' + country + '</span>';
+            $('#clockLoc').innerHTML = '📍 ' + loc;
+            $('#clockStatus').textContent = 'Ubicación detectada.';
+          } catch {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            $('#clockLoc').innerHTML = '📍 <span>' + tz + '</span>';
+            $('#clockStatus').textContent = 'Hora local correcta (sin nombre de país).';
+          }
+          btn.disabled = false;
+          btn.textContent = '📍 Detectar mi país';
+        },
+        err => {
+          let m = 'No se pudo obtener la ubicación.';
+          if (err.code === 1) m = 'Permiso denegado.';
+          if (err.code === 2) m = 'Ubicación no disponible.';
+          if (err.code === 3) m = 'Tiempo de espera agotado.';
+          $('#clockStatus').textContent = m;
+          btn.disabled = false;
+          btn.textContent = '📍 Detectar mi país';
+        },
+        { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
+      );
+    });
+
+    updateAuthUI();
+    renderBlog();
+  </script>
+</body>
+</html>
